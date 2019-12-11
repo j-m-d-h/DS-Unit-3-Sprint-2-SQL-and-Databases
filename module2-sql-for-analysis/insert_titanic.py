@@ -33,8 +33,8 @@ create_table_titanic = """
     Siblings_Spouses_Aboard INT,
     Parents_Children_Aboard INT,
     Fare FLOAT
-    )
-"""
+    )"""
+    
 pg_curs.execute(create_table_titanic)
 
 select_all_tables = """
