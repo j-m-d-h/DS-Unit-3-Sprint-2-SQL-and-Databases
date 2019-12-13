@@ -34,8 +34,8 @@ create_table_titanic = """
     Parents_Children_Aboard INT,
     Fare FLOAT
     )"""
-    
-pg_curs.execute(create_table_titanic)
+
+#pg_curs.execute(create_table_titanic)
 
 select_all_tables = """
     SELECT *
@@ -64,12 +64,28 @@ for row in titanic_db:
         Fare
         )
         VALUES""" + str(row[1:]) + ';'
-    pg_curs.execute(insert_rows)
+    #pg_curs.execute(insert_rows)
 
 pg_curs.execute('SELECT * FROM titanic;')
 pg_curs.fetchall()
 
 final = pg_curs.fetchall()
 
-pg_curs.close()
-pg_conn.commit()
+first_query = """
+    SELECT COUNT(survived)
+    FROM "public"."titanic"
+    WHERE survived=1;
+"""
+
+second_query = """
+    SELECT COUNT(*)
+    FROM "public"."titanic"
+    GROUP BY pclass;
+"""
+
+first = pg_curs.execute(first_query)
+second = pg_curs.execute(second_query)
+print(first, second, pg_curs.fetchall()[0][0])
+
+#pg_curs.close()
+#pg_conn.commit()
